@@ -1,0 +1,62 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KhumaloCraft Emporium - Home</title>
+    <style>
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            .btn:hover {
+                background-color: #0056b3;
+            }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <h1>Welcome to KhumaloCraft Emporium</h1>
+        <header>
+            <div class="container">
+                <div class=" logo">
+                    <a href="@Url.Action("Index", "Home")"><img src="~/Images/KhumaloCraftLogo.JPG" alt="KhumaloCraft Emporium"></a>
+                </div>
+            </div>
+        </header>
+        <p>Discover hidden gems and handcrafted items from artisans around the world</p>
+        <a href="@Url.Action("MyWork", "Home")" class="btn">Explore Now</a>
+    </section>
+
+    <div style="margin-top: 20px;"></div>
+
+    <section class="about">
+        <p>KhumaloCraft Emporium connects artists and buyers, showcasing some of the most unique handcrafted products.</p>
+        <a href="@Url.Action("AboutUs", "Home")" class="btn">Learn More</a>
+    </section>
+
+    <div style="margin-top: 20px;"></div>
+
+    <section class="contact">
+        <h2>Contact Us</h2>
+        <p>If you have any questions or inquiries, feel free to contact us:</p>
+        <p>Email: khumaloinfo@gmail.com</p>
+        <p>Phone Number: +27 761 142 932</p>
+    </section>
+    </body>
+</html>
+
+
+   
