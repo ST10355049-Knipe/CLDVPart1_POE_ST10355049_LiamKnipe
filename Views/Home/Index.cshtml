@@ -1,62 +1,45 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KhumaloCraft Emporium - Home</title>
-    <style>
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: #fff;
-            text-decoration: none;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-            .btn:hover {
-                background-color: #0056b3;
-            }
-    </style>
+    <title>@ViewData["Title"] - KhumaloCraft Emporium</title>
+    <link rel="stylesheet" href="~/style.css" />
 </head>
 <body>
-    <section class="hero">
-        <h1>Welcome to KhumaloCraft Emporium</h1>
-        <header>
-            <div class="container">
-                <div class=" logo">
-                    <a href="@Url.Action("Index", "Home")"><img src="~/Images/KhumaloCraftLogo.JPG" alt="KhumaloCraft Emporium"></a>
-                </div>
+    <header class="header">
+        <div class="logo">
+            <img src="~/Images/KhumaloCraftLogo.jpg" alt="KhumaloCraft Emporium Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+                <li><a href="@Url.Action("AboutUs", "Home")">About Us</a></li>
+                <li><a href="@Url.Action("MyWork", "Home")">My Work</a></li>
+                <li><a href="@Url.Action("ContactUs", "Home")">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <div class="hero-text">
+                <h1>Welcome to KhumaloCraft Emporium</h1>
+                <p>Experience the art of handcrafted excellence. We design and create unique pieces that embody tradition and style.</p>
+                <a href="@Url.Action("MyWork", "Home")" class="btn primary-btn">Explore Our Work</a>
             </div>
-        </header>
-        <p>Discover hidden gems and handcrafted items from artisans around the world</p>
-        <a href="@Url.Action("MyWork", "Home")" class="btn">Explore Now</a>
-    </section>
+            <div class="hero-image">
+            </div>
+        </section>
 
-    <div style="margin-top: 20px;"></div>
+        <section class="about">
+            <h2>About KhumaloCraft</h2>
+            <p>At KhumaloCraft, we are passionate about creating beautiful and functional handcrafted pieces. We use only the finest materials and traditional techniques to bring our vision to life. Each piece is a unique work of art, designed to be treasured for generations.</p>
+        </section>
+    </main>
 
-    <section class="about">
-        <p>KhumaloCraft Emporium connects artists and buyers, showcasing some of the most unique handcrafted products.</p>
-        <a href="@Url.Action("AboutUs", "Home")" class="btn">Learn More</a>
-    </section>
-
-    <div style="margin-top: 20px;"></div>
-
-    <section class="contact">
-        <h2>Contact Us</h2>
-        <p>If you have any questions or inquiries, feel free to contact us:</p>
-        <p>Email: khumaloinfo@gmail.com</p>
-        <p>Phone Number: +27 761 142 932</p>
-    </section>
-    </body>
+    <footer>
+        <p>&copy; @DateTime.Now.Year KhumaloCraft Emporium. All Rights Reserved.</p>
+    </footer>
+</body>
 </html>
-
-
-   
