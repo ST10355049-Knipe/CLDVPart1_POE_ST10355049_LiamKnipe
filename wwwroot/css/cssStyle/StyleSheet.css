@@ -2,35 +2,14 @@
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    /* Consider a light background color like #f8f8f8 or #f2f2f2 */
     
 }
 
 .container {
     max-width: 1000px;
     margin: 0 auto;
-    padding: 50px 0;
-}
-
-/* Header Styles (Standard) */
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     padding: 20px 0;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
-
-.logo {
-    flex-grow: 0;
-}
-
-    .logo img {
-        height: 200px; /* Increased logo height */
-        border-radius: 50%; /* Optional rounded corners */
-        /* Consider a logo with a transparent background for better blending */
-    }
 
 nav {
     display: flex;
@@ -63,3 +42,62 @@ nav {
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
+}
+
+.footerlinks {
+    color: #ffffff;
+    text-decoration: none !important;
+}
+
+    .footerlinks:hover {
+        color: #ffd800;
+    }
+
+#footer1 {
+    background: #762b00;
+    padding: 20px 0;
+    /*margin-top: -20px;*/
+    /* padding-top: 20px; */
+}
+
+#footer2 {
+    background: #531f00;
+    padding: 20px 0;
+    /*margin-top: -20px;*/
+    /*padding-top: 20px;*/
+}
+
+footer {
+    width: 100%;
+    margin: 0;
+    margin-top: 20px;
+}
+
+
+
+main.entry {
+    margin-bottom: 0; /* Remove or reduce the bottom margin for the main element */
+    
+}
+
+.form-group {
+    margin-bottom: 20px; /* Adjust the margin as needed */
+}
+
+.about-section {
+    padding: 50px 0; /* top and bottom padding of 50px, left and right padding of 0 */
+}
+
+.about-content {
+    text-align: justify;
+}
+
+.logo-banner {
+    background-image: url('/Images/KhumaloCraftsBanner.png');
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    min-height: 400px;
+}
+
+ 

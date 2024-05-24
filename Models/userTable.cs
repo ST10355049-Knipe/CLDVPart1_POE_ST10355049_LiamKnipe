@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
-using System.Data.SqlClient;
+using System.Security.Cryptography;
 using System.ComponentModel.DataAnnotations;
+using System.Data.SqlClient;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace ST10355049.Models
 {
-    public class userTable 
+    public class userTable
     {
-        public static string con_string = "Server=tcp:st10355049.database.windows.net,1433;Initial Catalog=st10355049-Database;Persist Security Info=False;User ID=liamknipe;Password=Lk20040119;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30";
-        public static SqlConnection con = new SqlConnection(con_string);
+        public static string ConnectionString = "Server=tcp:st10355049.database.windows.net,1433;Initial Catalog=st10355049-Database;Persist Security Info=False;User ID=liamknipe;Password=Lk20040119;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30";
+
+        public static SqlConnection con = new SqlConnection(ConnectionString);
 
         public int UserID { get; set; }
 
@@ -27,25 +29,25 @@ namespace ST10355049.Models
         [Required(ErrorMessage = "Password is required.")]
         public string Password { get; set; }
 
-        public string Role { get; set; }
-
-        public async Task<int> InsertUserAsync(userTable user)
+        public async Task<int> InsertUserAsync()
         {
             try
             {
-                string sql = "INSERT INTO userTable (FirstName, LastName, Email, Password, Role) VALUES (@FirstName, @LastName, @Email, @Password, @Role)";
-                SqlCommand cmd = new SqlCommand(sql, con);
-                cmd.Parameters.AddWithValue("@FirstName", user.FirstName);
-                cmd.Parameters.AddWithValue("@LastName", user.LastName);
-                cmd.Parameters.AddWithValue("@Email", user.Email);
-                cmd.Parameters.AddWithValue("@Password", user.Password);
-                cmd.Parameters.AddWithValue("@Role", user.Role ?? "Client"); // Default to 'Client' role if not provided
+                using (SqlConnection con = new SqlConnection(ConnectionString))
+                {
+                    string sql = "INSERT INTO userTable (FirstName, LastName, Email, Password) VALUES (@FirstName, @LastName, @Email, @Password)";
+                    SqlCommand cmd = new SqlCommand(sql, con);
+                    cmd.Parameters.AddWithValue("@FirstName", this.FirstName);
+                    cmd.Parameters.AddWithValue("@LastName", this.LastName);
+                    cmd.Parameters.AddWithValue("@Email", this.Email);
+                    cmd.Parameters.AddWithValue("@Password", HashPassword(this.Password));
 
-                await con.OpenAsync();
-                int rowsAffected = await cmd.ExecuteNonQueryAsync();
-                con.Close();
+                    await con.OpenAsync();
+                    int rowsAffected = await cmd.ExecuteNonQueryAsync();
+                    con.Close();
 
-                return rowsAffected;
+                    return rowsAffected;
+                }
             }
             catch (Exception ex)
             {
@@ -55,33 +57,36 @@ namespace ST10355049.Models
             }
         }
 
-        public async static Task<List<userTable>> GetUsersByRoleAsync(string role)
+
+        private static string HashPassword(string password)
         {
-            List<userTable> users = new List<userTable>();
-            using (SqlConnection con = new SqlConnection(con_string))
+            using (SHA256 sha256Hash = SHA256.Create())
             {
-                string sql = "SELECT * FROM userTable WHERE Role = @Role";
+                byte[] bytes = sha256Hash.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
+                return builder.ToString();
+            }
+        }
+
+        public async Task<int> UpdateUserAsync()
+        {
+            using (SqlConnection con = new SqlConnection(ConnectionString))
+            {
+                string sql = "UPDATE userTable SET FirstName = @FirstName, LastName = @LastName, Email = @Email WHERE UserID = @UserID";
                 SqlCommand cmd = new SqlCommand(sql, con);
-                cmd.Parameters.AddWithValue("@Role", role);
+                cmd.Parameters.AddWithValue("@FirstName", this.FirstName);
+                cmd.Parameters.AddWithValue("@LastName", this.LastName);
+                cmd.Parameters.AddWithValue("@Email", this.Email);
+                cmd.Parameters.AddWithValue("@UserID", this.UserID);
 
                 await con.OpenAsync();
-                SqlDataReader rdr = await cmd.ExecuteReaderAsync();
-
-                while (await rdr.ReadAsync())
-                {
-                    userTable user = new userTable();
-                    user.UserID = Convert.ToInt32(rdr["UserID"]);
-                    user.FirstName = rdr["FirstName"].ToString();
-                    user.LastName = rdr["LastName"].ToString();
-                    user.Email = rdr["Email"].ToString();
-                    user.Password = rdr["Password"].ToString();
-                    user.Role = rdr["Role"].ToString();
-
-                    users.Add(user);
-                }
+                int rowsAffected = await cmd.ExecuteNonQueryAsync();
+                return rowsAffected;
             }
-
-            return users;
         }
     }
 }

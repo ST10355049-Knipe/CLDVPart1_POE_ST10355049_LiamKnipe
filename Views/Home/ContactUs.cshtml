@@ -1,55 +1,86 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Contact Us";
 }
+
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" conetent = "width = device-width, initial-scale = 1.0">
-        <title>@ViewData["Title"] - KhumaloCraft Emporium</title>
-    </head>
-    <body>
-        <header>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - KhumaloCraft Emporium</title>
+    <link rel="stylesheet" href="~/style.css" />
+    <style>
+        .full-width-image {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <main class="container">
+        <section>
+            <img src="~/Images/MiddleBannerCraftImage.jpg" class="img-fluid full-width-image" alt="Contact Us Background" />
+        </section>
+
+        <section>
             <div class="container">
-                <div class=" logo">
-                <a href="@Url.Action("Index", "Home")"><img src="~/Images/KhumaloCraftLogo.JPG" alt="KhumaloCraft Emporium"></a>
+                <div class="row">
+                    <div class="col-12">
+                        <center>
+                            <h2>Get in Touch</h2>
+                            <p><b>Connect with Us</b></p>
+                        </center>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <center>
+                            <img width="150" src="~/Images/checklist.png" alt="Contact Form" />
+                            <h4>Contact Form</h4>
+                            <p class="text-justify">Fill out the contact form to get in touch with us. We'll be happy to assist you with any inquiries or questions you may have.</p>
+                        </center>
+                    </div>
+                    <div class="col-md-6">
+                        <center>
+                            <img width="150" src="~/Images/list.png" alt="Contact Details" />
+                            <h4>Contact Details</h4>
+                            <p class="text-justify">Find our contact details below, including our email address and phone number, for any urgent inquiries or questions.</p>
+                        </center>
+                    </div>
                 </div>
             </div>
-        </header>
+        </section>
 
-        <div class=" container">
-            <section id=" contact">
-                <h2>Contact Us</h2>
-                <p>If you need assistance or want to contact us, please fill out the form below with your apporpriate details and let us know of any questions or inquiries.</p>
-
-                <form method=" post">
-                    <div>
-                        <label for=" name">Name: </label>
-                        <input type ="text" id="name" name="name" required >
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3>Contact Form</h3>
+                        <form method="post">
+                            <div class="form-group">
+                                <label for="name">Name:</label>
+                                <input type="text" id="name" name="name" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="email" id="email" name="email" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message:</label>
+                                <textarea id="message" name="message" rows="4" class="form-control" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
                     </div>
-                    <div>
-                        <label for="email">Email: </label>
-                        <input type ="email" id="email" name="email" required >
+                    <div class="col-md-6">
+                        <h3>Contact Details</h3>
+                        <p><strong>Email:</strong> khumaloinfo@gmail.com</p>
+                        <p><strong>Phone Number:</strong> +27 761 142 932</p>
+                        <p><strong>Address:</strong> 43 Craft Street, Cape Town, South Africa</p>
                     </div>
-                    <div>
-                        <label for="message">Please explain your enquiry: </label>
-                    </<div>
-                    <div>
-                        <textarea id="message" name="message" rows="4" required></textarea>
-                    </div>
-                    <button type ="submit">Submit</button>
-                </form>
-            </section>
-
-        <div style="margin-top: 20px;"></div>
-
-
-            <section id="contact-details">
-                <h3>Find Our Contact Detail below</h3>
-                <p>Email: khumaloinfo@gmail.com</p>
-                <p>Phone Number: +27 761 142 932</p>
-            </section>
-        </div>
-    </body>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
 </html>
