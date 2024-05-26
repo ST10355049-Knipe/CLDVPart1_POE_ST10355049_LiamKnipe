@@ -73,6 +73,8 @@ namespace ST10355049.Controllers
             return View();
         }
 
+
+
         [HttpPost]
         public async Task<IActionResult> Login(string email, string password)
         {
@@ -81,15 +83,12 @@ namespace ST10355049.Controllers
 
             if (userId.HasValue)
             {
-                // User authenticated successfully, store their ID in the session
-                HttpContext.Session.SetString("UserId", userId.Value.ToString());
-
-                // Sign the user in and redirect to the "MyWork" page
+                // User authenticated successfully, sign them in and redirect to the "MyWork" page
                 var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, email),
-                // Add other claims as needed
-            };
+        {
+            new Claim(ClaimTypes.Name, email),
+            new Claim(ClaimTypes.NameIdentifier, userId.Value.ToString()),
+        };
 
                 var claimsIdentity = new ClaimsIdentity(
                     claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -107,6 +106,7 @@ namespace ST10355049.Controllers
                 return View();
             }
         }
+
     }
 }
 

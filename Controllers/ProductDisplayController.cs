@@ -4,6 +4,7 @@ using ST10355049.Models;
 using System.Data;
 using System.Data.SqlClient;
 using ST10355049.Extensions;
+using System.Security.Claims;
 
 namespace ST10355049.Controllers
 {
@@ -69,9 +70,8 @@ namespace ST10355049.Controllers
 
         public IActionResult AddToCart(int productID, int quantity)
         {
-            // Check if the user is logged in
-            int? userID = HttpContext.Session.GetInt32("UserID");
-            if (userID == null)
+            // Check if the user is authenticated
+            if (!User.Identity.IsAuthenticated)
             {
                 // Redirect the user to the login page
                 return RedirectToAction("LogIn", "Account");
@@ -116,16 +116,18 @@ namespace ST10355049.Controllers
         {
             try
             {
-                // Check if the user is logged in
-                int? userID = HttpContext.Session.GetInt32("UserID");
-                if (userID == null)
+                // Check if the user is authenticated
+                if (!User.Identity.IsAuthenticated)
                 {
                     // Redirect the user to the login page
                     return RedirectToAction("LogIn", "Account");
                 }
 
+                // Fetch the user ID from the User object
+                int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
                 // Fetch the cart from the session
-                Cart cart = HttpContext.Session.Get<Cart>("Cart");
+                Cart cart = HttpContext.Session.Get<Cart>("Cart") ?? new Cart();
 
                 // Check if the cart is empty
                 if (cart.Items.Count == 0)
@@ -138,7 +140,7 @@ namespace ST10355049.Controllers
                 // Create an Order object with the user's details and the current date
                 orderTable order = new orderTable
                 {
-                    UserID = userID.Value,
+                    UserID = userId,
                     OrderDate = DateTime.Now,
                     TotalAmount = cart.TotalAmount,
                     Status = "Pending"
@@ -241,7 +243,7 @@ namespace ST10355049.Controllers
             Cart cart = HttpContext.Session.Get<Cart>("Cart");
 
             // Find the item in the cart
-            CartItem item = cart.Items.Find(i => i.ProductID == id);
+            CartItem item = cart?.Items.Find(i => i.ProductID == id);
 
             // If the item is in the cart, remove it
             if (item != null)
@@ -260,16 +262,19 @@ namespace ST10355049.Controllers
         {
             try
             {
-                // Check if the user is logged in
-                int? userID = HttpContext.Session.GetInt32("UserID");
-                if (userID == null)
+                // Check if the user is authenticated
+                if (!User.Identity.IsAuthenticated)
                 {
                     // Redirect the user to the login page
                     return RedirectToAction("LogIn", "Account");
                 }
 
+                // Fetch the user ID from the User object
+                int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
                 // Fetch the order from the database
-                List<orderTable> orders = orderTable.GetOrdersByUserID(userID.Value);
+                List<orderTable> orders = orderTable.GetOrdersByUserID(userId); // Use userId instead of userID.Value
+
 
                 // Check if the order exists
                 if (orders == null || orders.Count == 0)
