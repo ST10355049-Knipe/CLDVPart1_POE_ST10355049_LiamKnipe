@@ -56,6 +56,12 @@ namespace ST10355049.Controllers
             return View(products);
         }
 
+        public IActionResult EmptyCartView()
+        {
+            Cart cart = HttpContext.Session.Get<Cart>("Cart") ?? new Cart();
+            return View(cart);
+        }
+
         public IActionResult CartView()
         {
             // Fetch the cart from the session or create a new one if it doesn't exist
@@ -297,6 +303,20 @@ namespace ST10355049.Controllers
                 ViewBag.ErrorMessage = "There was an error fetching your order. Please try again.";
                 return View();
             }
+        }
+
+        public IActionResult OrderHistory()
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("LogIn", "Account");
+            }
+
+            int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            List<orderTable> orders = orderTable.GetOrdersByUserID(userId);
+
+            return View(orders);
         }
     }
 }

@@ -26,7 +26,7 @@ else
                             <td>@item.ProductName</td>
                             <td>@(item.Price.ToString("C", new CultureInfo("en-ZA")))</td>
                             <td>@item.Quantity</td>
-                            <td>@(item.Price * item.Quantity).ToString("C")</td>
+                            <td>@((item.Price * item.Quantity).ToString("C", new CultureInfo("en-ZA")))</td>
                             <td>
                         <form asp-action="RemoveFromCart" asp-route-id="@item.ProductID" method="post">
                             <button type="submit" class="btn btn-danger">Remove</button>
@@ -34,11 +34,11 @@ else
                             </td>
                         </tr>
             }
-                <tr>
-                    <td colspan="3" class="text-right">Total:</td>
-                    <td>@Model.TotalAmount.ToString("C")</td>
-                    <td></td>
-                </tr>
+            <tr>
+                <td colspan="3" class="text-right">Total:</td>
+                <td>@Model.TotalAmount.ToString("C", new CultureInfo("en-ZA"))</td>
+                <td></td>
+            </tr>
             </tbody>
         </table>
 

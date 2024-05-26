@@ -1,10 +1,10 @@
-﻿
+﻿@using System.Globalization
 @model orderTable
 
 <h2>Thank you for your order!</h2>
 
 <p>Your order number is @Model.OrderID.</p>
 
-<p>Your order total is @Model.TotalAmount.ToString("C").</p>
+<p>Your order total is @Model.TotalAmount.ToString("C", new CultureInfo("en-ZA")).</p>
 
 <p>Your order will be shipped to you soon.</p>
