@@ -62,11 +62,10 @@
                                     }
                                 </p>
 
-                                <!-- Add to cart button -->
-                              <form method="post" action="@Url.Action("AddToCart", "Cart")">
-                                <input type="hidden" name="ProductID" value="@item.ProductID" />
-                                <input type="submit" value="Add to Cart" disabled />
-                              </form>
+                               <!-- Add to cart button -->
+                                <form method="post" asp-action="AddToCart" asp-controller="ProductDisplay" asp-route-productID="@item.ProductID" asp-route-quantity="1">
+                                    <input type="submit" value="Add to Cart" @(item.Availability == false ? "disabled" : "") />
+                                </form>
                     </div> 
                         }
                     }

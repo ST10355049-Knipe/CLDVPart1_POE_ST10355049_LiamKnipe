@@ -2,11 +2,21 @@
 
 namespace ST10355049.Models
 {
-    public class CartItem : Controller
+    public class CartItem
     {
-        public IActionResult Index()
+        public int ProductID { get; set; }
+
+        public string ProductName { get; set; }
+
+        public int Quantity { get; set; }
+        public decimal Price { get; set; }
+
+        public decimal TotalPrice
         {
-            return View();
+            get
+            {
+                return Quantity * Price;
+            }
         }
     }
 }

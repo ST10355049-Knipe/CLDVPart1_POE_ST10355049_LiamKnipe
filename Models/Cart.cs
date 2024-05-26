@@ -2,11 +2,21 @@
 
 namespace ST10355049.Models
 {
-    public class Cart : Controller
+    public class Cart
     {
-        public IActionResult Index()
+        public List<CartItem> Items { get; set; } = new List<CartItem>();
+
+        public decimal TotalAmount
         {
-            return View();
+            get
+            {
+                decimal total = 0;
+                foreach (var item in Items)
+                {
+                    total += item.TotalPrice;
+                }
+                return total;
+            }
         }
     }
 }

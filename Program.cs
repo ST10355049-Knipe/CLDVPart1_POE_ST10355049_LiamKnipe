@@ -18,10 +18,12 @@ namespace CloudDevelopment
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             builder.Services.AddDistributedMemoryCache();
 
-            // Add session state
+            // Add session support
             builder.Services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
             });
 
             // Add authentication services
@@ -34,7 +36,7 @@ namespace CloudDevelopment
 
             var app = builder.Build();
 
-            // Use session state
+            // Use session
             app.UseSession();
 
             app.UseStaticFiles();
