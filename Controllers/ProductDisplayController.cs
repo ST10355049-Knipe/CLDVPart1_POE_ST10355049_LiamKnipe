@@ -56,11 +56,7 @@ namespace ST10355049.Controllers
             return View(products);
         }
 
-        public IActionResult EmptyCartView()
-        {
-            Cart cart = HttpContext.Session.Get<Cart>("Cart") ?? new Cart();
-            return View(cart);
-        }
+  
 
         public IActionResult CartView()
         {
