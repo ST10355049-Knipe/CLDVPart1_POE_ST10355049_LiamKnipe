@@ -1,4 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿//Liam Knipe St10355049
+// REFRENCES: https://www.newtonsoft.com/json/help/html/serializingjson.htm
+
+using Newtonsoft.Json;
 using Microsoft.AspNetCore.Http;
 
 namespace ST10355049.Extensions
