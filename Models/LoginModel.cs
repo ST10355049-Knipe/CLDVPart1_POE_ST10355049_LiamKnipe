@@ -1,4 +1,7 @@
-﻿using System.Data.SqlClient;
+﻿//Liam Knipe ST10355049
+//References: https://learn.microsoft.com/en-us/aspnet/core/security/data-protection/consumer-apis/password-hashing?view=aspnetcore-8.0
+
+using System.Data.SqlClient;
 using System.Security.Cryptography;
 using System.Text;
 
